@@ -2,6 +2,7 @@ from os.path import join, splitext, split
 import os
 import numpy as np
 import json
+from xml.dom import minidom
 
 
 class Metadata:
@@ -67,11 +68,19 @@ class Metadata:
 			data = json.load(json_file)
 			predictions = np.array(data.get('object', []))		# Get object prediction list
 
-			# for each prediction save class and score
+			# for each element save class and score
 			for obj in range(len(predictions)):
 				self.object_classes.append(predictions[obj]['class'])
 				self.object_scores.append(np.float(predictions[obj]['score']))		# score np.float
 
 	def load_metadata_xml(self):
 		print('Load .xml metadata: ', self.filepath)
-		print('FUNCIÓN NO TERMINADA')
+		with open(self.filepath) as xml_file:
+			data = minidom.parse(xml_file)
+			annotation = data.getElementsByTagName('object')
+
+			# for each element save class and score
+			for object in annotation:
+				elem_name = object.getElementsByTagName('name')[0]		# look for element name by tag
+				self.object_classes.append(elem_name.firstChild.data)		# apprend the element tag
+				self.object_scores.append(np.float(1))  					# score np.float = 1.0 = ground truth

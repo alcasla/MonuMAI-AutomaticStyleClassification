@@ -8,7 +8,7 @@ from monumai.monument import Monument
 
 
 # list metadata file in folder by type
-def read_metadata_file_paths(directory, type):
+def read_metadata_file_paths(directory, type='json'):
     files = [f for f in listdir(directory)]
 
     # filter files by extension
@@ -20,7 +20,7 @@ def read_metadata_file_paths(directory, type):
     return files
 
 
-# retirn aggregation element vector by sum
+# return aggregation element vector by sum
 def metadata_to_aggregation_sum(directory, filename):
     metadata = Metadata(directory, filename)
     monument = Monument(metadata)
@@ -28,6 +28,7 @@ def metadata_to_aggregation_sum(directory, filename):
     return monument.aggregation_score_sum()
 
 
+# read metadata files from directory, aggregate, and append into matrix
 def metadata_to_matrix(directory, type):
     file_paths = read_metadata_file_paths(directory, type)      # metadata files of type
 
