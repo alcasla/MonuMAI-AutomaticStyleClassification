@@ -7,6 +7,8 @@ class Monument:
         'renaissance':  ['arco-medio-punto',   'vano-adintelado',   'ojo-de-buey',   'fronton',   'fronton-curvo',   'serliana'],
         'baroque':      ['arco-medio-punto',   'vano-adintelado',    'ojo-de-buey',   'fronton-partido',   'columna-salomonica']
     }
+    # Hot-one encode order for styles
+    STYLES_HOTONE_ENCODE = ['M', 'G', 'R', 'B']    # M(Hispanic-muslim)=0, G(Gothic)=1, R(Renaissance)=2, B(Baroque)=3
 
     def __init__(self, metadata):
         self.__elements = {}        # dictipnary to group objects by elements

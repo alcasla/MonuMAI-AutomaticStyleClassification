@@ -17,7 +17,7 @@ def main():
     extension = args.ext
     out_file = args.pkl
 
-    metadata_matrix = metadata_to_matrix(target_dir, extension)    # sum element aggregation and store in matrix metadata files
+    metadata_matrix = metadata_to_matrix(target_dir, extension)    # sum element aggregation + class label matrix
     print('Metadata structure shape: ', metadata_matrix.shape)
 
     # save metadata structure into pickle file

@@ -28,17 +28,25 @@ def metadata_to_aggregation_sum(directory, filename):
     return monument.aggregation_score_sum()
 
 
+# return numeric class code in hot-one encode
+def metadata_to_hotone_class(filename):
+    label = filename[0]
+    return Monument.STYLES_HOTONE_ENCODE.index(label)
+
+
 # read metadata files from directory, aggregate, and append into matrix
 def metadata_to_matrix(directory, type):
     file_paths = read_metadata_file_paths(directory, type)      # metadata files of type
 
     # aggregate metadata and store in matrix
     num_inst = len(file_paths)
-    inst_len = sum([len(x) for x in list(Monument.ELEMENT_DIC.values())])
+    inst_len = sum([len(x) for x in list(Monument.ELEMENT_DIC.values())])+1     # num elements in dic + class label
     matrix = []
     for path in file_paths:
         aggregation = metadata_to_aggregation_sum(directory, path)      # create generic "metadata_to_aggregation" if different aggregate operations needed
-        matrix.append(aggregation)
+        hotome_label = metadata_to_hotone_class(path)       #get hotone class code
+        instance = np.append(aggregation, np.float(hotome_label))       #joint aggregation and class label
+        matrix.append(instance)
     matrix = np.array( np.reshape(matrix, (num_inst, inst_len)) )       # list type to numpy array-based structure
 
     return matrix
