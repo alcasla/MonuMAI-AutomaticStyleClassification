@@ -44,7 +44,7 @@ def metadata_to_matrix(directory, type):
     matrix = []
     for path in file_paths:
         aggregation = metadata_to_aggregation_sum(directory, path)      # create generic "metadata_to_aggregation" if different aggregate operations needed
-        class_label_indx = metadata_to_class_indx(path)       #get hotone class code
+        class_label_indx = metadata_to_class_indx(path)       #get numeric class code
         instance = np.append(aggregation, np.uint8(class_label_indx))       #joint aggregation and class label
         instance = np.append(instance, str(path))
         matrix.append(instance)
