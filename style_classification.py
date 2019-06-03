@@ -1,7 +1,6 @@
 import argparse
 import datetime
 from tensorflow import keras
-from tensorflow.python.keras.models import model_from_json
 
 from tools.pickle_tools import *
 
@@ -9,8 +8,8 @@ from tools.pickle_tools import *
 def main():
     ####### Parameter parsing #######
     parser = argparse.ArgumentParser(description='Arguments needed to prepare the metadata files')
-    parser.add_argument('--trn', dest='train', help='File path to save pickle file.', required=True)
-    parser.add_argument('--tst', dest='test', help='File path to save pickle file.', required=True)
+    parser.add_argument('--trn', dest='train', help='File path to load training pickle file.', required=True)
+    parser.add_argument('--tst', dest='test', help='File path to load test pickle file.', required=True)
 
     args = parser.parse_args()
     #################################
